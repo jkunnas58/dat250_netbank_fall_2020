@@ -10,4 +10,16 @@ body {
   p {
     font-family: verdana;
     font-size: 20px;
+
   }
+
+  #login {
+    position: fixed;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px; /* width of button */
+    height: 30px; /* height of button */
+}
