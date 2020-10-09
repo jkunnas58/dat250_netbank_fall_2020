@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}{{article.title}}{% endblock title %}
+
+{% block content %}
+<h1>{{article.title}}</h1>
+<p>{{article.date}}</p>
+<p>{{article.text}}</p>
+{% endblock content %}
