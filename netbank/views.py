@@ -3,13 +3,14 @@ from netbank import app #, query_db
 
 
 @app.route('/')
+@app.route('/index.html')
 def index():
-    # articles = query_db('SELECT rowid, * FROM article;')
-    return f"<h1>Hello world</h1>"
+    return render_template('index.html')
 
+@app.route('/login_page.html')
+def login_page():
+    return render_template('login_page.html')
 
-# @app.route('/article/<int:article_id>')
-# def article(article_id):
-#     article = query_db(
-#         'SELECT * FROM article WHERE id=?;', (str(article_id)), True)
-#     return render_template('article.html', article=article)
+@app.route('/logged_in_page.html')
+def logged_in_page():
+    return render_template('logged_in_page.html')

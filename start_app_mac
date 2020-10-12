@@ -1,0 +1,4 @@
+export FLASK_APP=netbank
+export FLASK_ENV=development
+pip install -e
+flask run
