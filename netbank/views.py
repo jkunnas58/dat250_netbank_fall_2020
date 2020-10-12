@@ -1,6 +1,6 @@
 from flask import render_template
-from netbank import app #, query_db
-
+from netbank import app , db
+db.create_all()
 
 @app.route('/')
 @app.route('/index.html')
