@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
-
-{% block title %}Home{% endblock %}
-
 {% block content %}
-<ul>
-  {% for article in articles %}
-   <li>
-    <a href={{ url_for('article', article_id=article.id) }}>{{ article.title }} - {{ article.date }}</a>
-   </li>
-  {% endfor %}
-</ul>
+
+  <h3>
+    Welcome to NetBank
+  </h3>
+
+    <a href="login_page.html">
+        
+      <button id="login"> Log in </button>
+    </a>
 {% endblock %}
