@@ -1,6 +1,9 @@
+from flask import Flask
 from flask import render_template
 from netbank import app #, query_db
+from forms import LoginForm
 
+app.config['SECRET KEY'] = '5791628bb0b13ce0c677dfde280ba245'
 
 @app.route('/')
 def index():
@@ -9,11 +12,12 @@ def index():
 
 @app.route('/login_page')
 def login_page():
-    return render_template('login_page.html')
+    #form = LoginForm()
+    return render_template('login_page.html', title='Login') #, form=form)
 
 @app.route('/logged_in_page')
 def logged_in_page():
-    return render_template('logged_in_page.html')
+    return render_template('logged_in_page.html', title='You are now logged in')
 
 
 # @app.route('/article/<int:article_id>')
