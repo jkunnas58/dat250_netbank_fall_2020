@@ -3,11 +3,11 @@ from netbank import app , db
 db.create_all()
 # from forms import RegistrationForm, LoginForm
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
-app.config['SECRET KEY'] = '' #need to input secret key
+# app.config['SECRET KEY'] = '1x5y4-4ds7f-4fk76' #need to input secret key
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -33,6 +33,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
+@app.route('/register.html', methods=['GET', 'POST'])
 def register():
     # form = RegistrationForm()
     # if form.validate_on_submit()
@@ -42,8 +43,9 @@ def register():
 
 @app.route('/login_page.html')
 def login_page():
-    # form = LoginForm()
-    return render_template('login_page.html')#, form=form)
+    form = LoginForm()
+    # return render_template('login_page.html')#, form=form)
+    return render_template('login_new.html', form=form)
 
 @app.route('/logged_in_page.html')
 def logged_in_page():
