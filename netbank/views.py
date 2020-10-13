@@ -34,16 +34,16 @@ def index():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
+    # form = RegistrationForm()
     # if form.validate_on_submit()
         # flash(f'Account created for {form.username.data}', 'success')
         # return redirect(url_for('home'))
-    return render_template('register.html', form=form)
+    return render_template('register.html')#, form=form)
 
 @app.route('/login_page.html')
 def login_page():
-    form = LoginForm()
-    return render_template('login_page.html', form=form)
+    # form = LoginForm()
+    return render_template('login_page.html')#, form=form)
 
 @app.route('/logged_in_page.html')
 def logged_in_page():
