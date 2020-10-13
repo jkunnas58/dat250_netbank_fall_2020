@@ -2,3 +2,5 @@
 Group assignment in subject DAT250 
 
 NetBank
+
+
