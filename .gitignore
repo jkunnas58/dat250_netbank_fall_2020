@@ -3,4 +3,5 @@ draft_templates/.DS_Store
 .DS_Store
 *.pyc
 *.pyc
-netbank/__pycache__
+netbank/__pycache__/
+__pycache__/
