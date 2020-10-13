@@ -1,15 +1,24 @@
-from flask import render_template
+from flask import Flask, render_template, url_for
 from netbank import app #, query_db
+from forms import RegistrationForm, LoginForm
 
+app.config['SECRET KEY'] = '' #need to input secret key
 
 @app.route('/')
 @app.route('/index.html')
 def index():
     return render_template('index.html')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    # if form.validate_on_submit()
+    return render_template('register.html', form=form)
+
 @app.route('/login_page.html')
 def login_page():
-    return render_template('login_page.html')
+    form = LoginForm()
+    return render_template('login_page.html', form=form)
 
 @app.route('/logged_in_page.html')
 def logged_in_page():
