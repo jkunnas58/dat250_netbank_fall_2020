@@ -35,11 +35,11 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 @app.route('/register.html', methods=['GET', 'POST'])
 def register():
-    # form = RegistrationForm()
-    # if form.validate_on_submit()
-        # flash(f'Account created for {form.username.data}', 'success')
-        # return redirect(url_for('home'))
-    return render_template('register.html')#, form=form)
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html', form=form)
 
 @app.route('/login_page')
 @app.route('/login_page.html')
@@ -48,7 +48,7 @@ def login_page():
     if form.validate_on_submit():
         flash('Login requested for user {}'.format(
             form.username.data))
-        return redirect('/index')
+        return redirect(url_for('index'))
     return render_template('login_page.html', title='Log In', form=form)
 
 

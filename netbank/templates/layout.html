@@ -8,8 +8,8 @@
   <body>
     <div>
       NetBank:
-      <a href="/index">Home</a>
-      <a href="/login">Login</a>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('login_page') }}">Login</a>
   </div>
     <header>
       <h1>NetBank</h1>
@@ -29,7 +29,7 @@
     <main>{% block content %} {% endblock %}</main>
     <footer>
       <h4>For all your banking needs</h4>
-      <h4>Location: Stavanger, Norway</h4>
+      <h5>Location: Cayman Islands</h5>
     </footer>
   </body>
 
