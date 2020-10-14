@@ -1,90 +1,266 @@
+@import "compass/css3";
+
+//Just a ltitle layout demo using flexbox. Color pallete found on Kuler - https://color.adobe.com/Theme-33-color-theme-5523423/
+
+//Dummy text from Whedonipsum - www.commercekitchen.com/whedon-ipsum/
+
+//Color definitions
+$lightblue: #D7F7FE;
+$darkblue: #1A577F;
+$medblue: #1F729C;
+$salmon: #FF6067;
+$hellayellow: #F7EE1A;
+
+//Typography
+$base-font-size: 16px;
+$base-font-family: 'Nunito', sans-serif;
+$heading-font-family: 'Righteous', sans-serif;
+
+//Convert px to em
+@function em($px, $base: $base-font-size) {
+  @return ($px / $base) * 1em;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #444;
+  background: $lightblue;
+  font-family: $base-font-family;
+  color: #222;
 }
 
-/*
- * Formatting the header area
- */
-
-header {
-  background-color: #DFB887;
-  height: 35px;
-  width: 100%;
-  opacity: .9;
-  margin-bottom: 10px;
+* {
+  transition: all .65s ease;
+  box-sizing: border-box;
+  
 }
 
-header h1.logo {
-  margin: 0;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  float: left;
-}
-
-header h1.logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-/*
- * Centering the body content
- */
-
+//Centering Content 
 .container {
-  width: 1200px;
+  max-width: 75em;
   margin: 0 auto;
 }
 
-div.home {
-  padding: 10px 0 30px 0;
-  background-color: #E6E6FA;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
+//Setting up the header so the "logo" and tagline site on each side of the header using flexbox. At 700px, they will stack.
+.header {
+  background: $salmon;
+  color: white;
+  padding: em(10px);
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .site-title, .site-tagline {
+    font-weight: 400;
+  }
+  @media (max-width: 700px) {
+    .site-title, .site-tagline {
+      width: 100%;
+      text-align: center;
+    }
+    .site-title {
+      margin: 0;
+    }
+  }
 }
 
-div.about {
-  padding: 10px 0 30px 0;
-  background-color: #E6E6FA;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
+.site-title, h1, h2, h3 {
+  font-family: $heading-font-family;
+  font-size: em(42px);
+  color: darken($lightblue, 75%);
 }
-
-h2 {
-  font-size: 3em;
-  margin-top: 40px;
-  text-align: center;
-  letter-spacing: -2px;
-}
-
 h3 {
-  font-size: 1.7em;
-  font-weight: 100;
-  margin-top: 30px;
+  font-size: em(32px);
+  color: desaturate($salmon, 10%);
+}
+.site-title {
+  color: white;
+}
+.site-tagline {
+  font-size: em(18px);
+  font-style: italic;
+}
+
+// Navigation, including mobile version
+.main-nav {
+  background: $hellayellow;
+  color: white;
+  //transition: none;
+  a {
+    color: $darkblue;
+    text-decoration: none;
+  }
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    a {
+      padding: em(15px) em(35px);
+      display: flex;
+      text-transform: uppercase;
+      &:hover, &:focus {
+        background: lighten($hellayellow, 25%);
+        color: lighten($darkblue, 25%);
+      }
+    }
+    .mobile-button a {
+      position: absolute;
+      left: -99999em;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    ul {
+      flex-wrap: wrap;
+       justify-content: flex-start;
+      a {
+        position: absolute;
+        left: -99999em;
+      }
+      &.open {
+        li {
+          width: 100%;
+          &.mobile-button a {
+          	background: tint($hellayellow, 50%);
+          	color: darken($medblue, 20%);
+          }
+        }
+        a {
+          position: static;
+          
+        }
+      }
+      .mobile-button {
+        a {
+          position: static;
+        }
+      }
+    }
+    a {
+      width: 100%;
+    }
+  }
+}
+
+//Setting up full-bleed images, shrinking the height on smaller viewports 
+.full-bleed {
+  background-size: cover;
+  min-height: 300px;
+  width: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+@media (max-width:700px) {
+  .full-bleed {
+    min-height: 175px;
+  }
+}
+
+.cool-photo {
+  background-image: url(http://lorempixel.com/1300/400/abstract)
+}
+.cool-photo2 {
+  background-image: url(http://lorempixel.com/1300/400/food)
+}
+
+.post {
+  padding: em(30px);
+}
+
+// Setting up our columns/grids. The first section has two columns side by side. The second section has a grid of 3 columns, that reduces down to two columns and then full width as browser is scaled down.
+.columns {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .item {
+    padding: em(25px);
+    max-width: 47%;
+    background: lighten($medblue, 45%);
+    color: $darkblue;
+    border-bottom: 5px solid $hellayellow;
+    margin-bottom: em(35px);
+    position: relative;
+    overflow: hidden;
+    .item-title {
+      color: darken($lightblue, 85%);
+      font-size: 24px;
+      margin: 0 0 5px 0;
+      font-family: $heading-font-family;
+    }
+    .item-image {
+      max-width: 100%;
+    }
+    &:hover, &:focus {
+      background: lighten($medblue, 58%);
+      border-bottom-color: $salmon;
+      .social {
+        position: absolute;
+        bottom: -21px;
+        height: auto;
+        z-index: 5;
+        padding: 10px 0;
+        .fa {
+          color: $salmon;
+          padding: 0 em(5px);
+          &:hover {
+            color: tint($darkblue, 40%);
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 660px) {
+    .item {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+   &.thirds {
+     .item {
+        max-width: 31%;
+     }
+     
+     @media (max-width: 770px) {
+       .item {
+         max-width: 48%;
+       }
+       @media (max-width: 660px) {
+       .item {
+         max-width: 100%;
+         width: 100%;
+       }
+     }
+     }
+    }
+  .social {
+    position: absolute;
+    bottom: -60px;
+    height: 0;
+    z-index: -1;
+    font-size: em(28px);
+  }
+}
+
+.footer {
+  background: $salmon;
+  color: white;
+  padding: em(15px);
   text-align: center;
-  letter-spacing: -1px;
-  color: #999;
+  font-size: em(13px);
+  a {
+    color: $hellayellow;
+    text-decoration: none;
+    border-bottom: 1px solid;
+  }
 }
 
-.menu {
-  float: right;
-  margin-top: 8px;
-}
-
-.menu li {
-  display: inline;
-}
-
-.menu li + li {
-  margin-left: 35px;
-}
-
-.menu li a {
-  color: #444;
-  text-decoration: none;
-}
+//With love <3 by Lindsey Di Napoli - CSSgirl

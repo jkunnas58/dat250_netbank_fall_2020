@@ -7,9 +7,13 @@
         <p>
             {{ form.username.label }}<br>
             {{ form.username(size=32) }} <br>
+            {% if form.username.errors %}
+            <div class="invalid-feedback">
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
+            </div>
+            {% endif %}
         </p>
         <p>
             {{ form.password.label }}<br>
@@ -20,11 +24,11 @@
         </p>
         <p>{{ form.submit() }}</p>
         
-        <a href="register.html">
+        <a href="{{ url_for('register')}}">
             <button type="button" class="btn">Register new user</button>
         </a>
 
-        <a href="index.html">
+        <a href="{{ url_for('index')}}">
             <button type="button" class="cancelbtn">Cancel</button>
         </a>
 
