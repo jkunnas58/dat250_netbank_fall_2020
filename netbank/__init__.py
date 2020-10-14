@@ -1,11 +1,18 @@
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
+# from config import Config
+import os
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or '1x5y4-4ds7f-4fk76'
 
 app = Flask(__name__)
+app.config.from_object(Config)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database_test.db'
 db = SQLAlchemy(app)
 
+# from app import routes
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

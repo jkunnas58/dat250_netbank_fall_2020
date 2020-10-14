@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>{% block title %}{% endblock %} - NetBank</title>
     <link rel="stylesheet" href="static/style.css">
   </head>
   <body>
+    <div>
+      NetBank:
+      <a href="/index">Home</a>
+      <a href="/login">Login</a>
+  </div>
     <header>
       <h1>NetBank</h1>
     </header>
+    
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
     <main>{% block content %} {% endblock %}</main>
     <footer>
       <h4>For all your banking needs</h4>
       <h4>Location: Stavanger, Norway</h4>
     </footer>
   </body>
+
 </html>

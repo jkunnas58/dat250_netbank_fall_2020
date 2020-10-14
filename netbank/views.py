@@ -7,10 +7,10 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
-# app.config['SECRET KEY'] = '1x5y4-4ds7f-4fk76' #need to input secret key
+app.config['SECRET KEY'] = '1x5y4-4ds7f-4fk76' #need to input secret key
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=8, max=20)])
     
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=8, max=20)])
     
     password = PasswordField('Password', validators=[DataRequired()])
 
@@ -41,11 +41,16 @@ def register():
         # return redirect(url_for('home'))
     return render_template('register.html')#, form=form)
 
+@app.route('/login_page')
 @app.route('/login_page.html')
 def login_page():
     form = LoginForm()
-    # return render_template('login_page.html')#, form=form)
-    return render_template('login_new.html', form=form)
+    if form.validate_on_submit():
+        flash('Login requested for user {}'.format(
+            form.username.data))
+        return redirect('/index')
+    return render_template('login_page.html', title='Log In', form=form)
+
 
 @app.route('/logged_in_page.html')
 def logged_in_page():

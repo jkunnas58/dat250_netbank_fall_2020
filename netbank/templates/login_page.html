@@ -1,27 +1,23 @@
 {% extends "layout.html" %}
+
 {% block content %}
+    <h1>Log In</h1>
+    <form method="POST" action="" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        
+        <a href="index.html">
+            <button type="button" class="cancelbtn">Cancel</button>
+        </a>
+    
 
-  <h1>
-    Please enter your credentials
-  </h1>
-
-  <form>
-          
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-              
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-              
-      <a href="logged_in_page.html">
-        <button type="button">Login</button>
-      </a>
-                
-      <a href="index.html">
-        <button type="button" class="cancelbtn">Cancel</button>
-      </a>
-
-
-  </form> 
-
+    </form>
 {% endblock %}
