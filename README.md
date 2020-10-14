@@ -2,6 +2,3 @@
 Group assignment in subject DAT250 
 
 NetBank
-
-
-This is the sql branch
