@@ -5,3 +5,4 @@ netbank\__pycache__\
 __pycache__\
 *.db
 *.db
+netbank/database.db
