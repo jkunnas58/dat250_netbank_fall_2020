@@ -1,11 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo, NumberRange, ValidationError
 from netbank.models import User
-
-#not used, but was meant as a money input checker. between 100 and 1000 and need to be integer
-
-
 
 
 class RegistrationForm(FlaskForm):
@@ -40,3 +36,8 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+
+class SendMoneyForm(FlaskForm):
+    amount = IntegerField('Amount', validators=[DataRequired()])
+    recipient = SelectField(label='Recipient', choices=[])
+          

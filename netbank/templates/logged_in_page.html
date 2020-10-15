@@ -2,8 +2,20 @@
 {% block content %}
 
     <h1>
-        Welcome to Netbank,{{ current_user.username }}
+        Welcome to Netbank MR/MRS/MISS {{ current_user.username }}
     </h1>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Choose a person to send money to:</legend>
+                <div class="form-group">
+                   {{form.recipient.label}}
+                   {{form.recipient}}
+                </div>
+
+        </form>
+    </div>
     <p>
         <form>
             <label for="users">Choose a person to send money to:</label>
