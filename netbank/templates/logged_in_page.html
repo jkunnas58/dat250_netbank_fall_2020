@@ -2,7 +2,7 @@
 {% block content %}
 
     <h1>
-        Welcome User x
+        Welcome to Netbank,{{ current_user.username }}
     </h1>
     <p>
         <form>
@@ -37,7 +37,7 @@
                 </tr>
         </table>
 
-        <a href="index.html">
+        <a href="{{url_for('logout')}}">
             <button onclick="document.location='index.html'">Logout</button>
         </a>
     </p>
