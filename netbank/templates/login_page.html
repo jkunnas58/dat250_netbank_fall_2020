@@ -1,27 +1,54 @@
 {% extends "layout.html" %}
+
 {% block content %}
+    <h1>Log In</h1>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!--<div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div> -->
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
 
-  <h1>
-    Please enter your credentials
-  </h1>
+    </div>
+    <a href="{{ url_for('register')}}">
+        <button type="button" class="btn">Register new user</button>
+    </a>
 
-  <form>
-          
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-              
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-              
-      <a href="logged_in_page.html">
-        <button type="button">Login</button>
-      </a>
-                
-      <a href="index.html">
+    <a href="{{ url_for('index')}}">
         <button type="button" class="cancelbtn">Cancel</button>
-      </a>
-
-
-  </form> 
-
-{% endblock %}
+    </a>
+{% endblock content %}
