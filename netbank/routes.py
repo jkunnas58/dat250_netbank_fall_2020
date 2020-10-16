@@ -45,16 +45,22 @@ def login_page():
             flash('Login Unsuccessful. Please check username and password ', 'danger')
     return render_template('login_page.html', title='Login', form=form)
 
-@app.route('/logged_in_page')
-@app.route('/logged_in_page.html')
+@app.route('/logged_in_page', methods=['GET', 'POST'])
+@app.route('/logged_in_page.html', methods=['GET', 'POST'])
 @login_required
 def logged_in_page():
     form = SendMoneyForm()
-    form.recipient.choices = ['test','test2']
-    # users_in_db = User.query.filter(User.username).fetchall()
-    # for row in users_in_db:
-    #     if row is not current_user.username:
-    #         form.redirect.choices.append()
+    # form.recipient.choices = User.query.all()
+    # print(f'current user is {current_user}')
+    list_of_users = []
+    all_users = User.query.all()
+    for users in all_users:
+        if current_user != users:
+            list_of_users.append(users.username)
+    form.recipient.choices = list_of_users
+    # print(list_of_users)
+    # print(form.amount.data, '$ sent to ', form.recipient.data)
+
     return render_template('logged_in_page.html', title='Logged_in', form=form)
 
 
