@@ -40,4 +40,5 @@ class LoginForm(FlaskForm):
 class SendMoneyForm(FlaskForm):
     amount = IntegerField('Amount', validators=[DataRequired()])
     recipient = SelectField(label='Recipient', choices=[])
+    submit = SubmitField('Send Money')
           
