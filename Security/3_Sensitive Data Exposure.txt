@@ -1,0 +1,9 @@
+3. Sensitive Data Exposure
+Things to implement:
+
+•	Encrypt all data in transit with secure protocols such as TLS with perfect forward secrecy (PFS) ciphers, cipher prioritization by the server, and secure parameters. 
+  Enforce encryption using directives like HTTP Strict Transport Security (HSTS). Not sure how to do this one, maybe you guy know.
+  
+  
+•	Sensitive data at rest (password in our case) must be encrypted. I saw that password is already encrypted. One extra thing that we can have is card/account number. 
+  That one would also have to be encrypted. Good encryption methods: Argon2, scrypt, bcrypt or PBKDF2.
