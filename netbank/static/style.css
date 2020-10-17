@@ -60,6 +60,7 @@ h2 {
   margin-top: 40px;
   text-align: center;
   letter-spacing: -2px;
+  color: crimson;
 }
 
 h3 {
@@ -87,4 +88,8 @@ h3 {
 .menu li a {
   color: #444;
   text-decoration: none;
+}
+
+.test {
+  color:blue;
 }

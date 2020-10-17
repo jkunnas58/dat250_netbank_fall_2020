@@ -3,6 +3,7 @@ from netbank import app, db, bcrypt
 from netbank.models import User
 from netbank.forms import RegistrationForm, LoginForm, SendMoneyForm
 from flask_login import login_user, current_user, logout_user, login_required
+from wtforms.validators import  ValidationError
 
 # db.drop_all()
 db.create_all()
@@ -50,16 +51,29 @@ def login_page():
 @login_required
 def logged_in_page():
     form = SendMoneyForm()
-    # form.recipient.choices = User.query.all()
-    # print(f'current user is {current_user}')
     list_of_users = []
     all_users = User.query.all()
     for users in all_users:
         if current_user != users:
             list_of_users.append(users.username)
     form.recipient.choices = list_of_users
-    # print(list_of_users)
-    # print(form.amount.data, '$ sent to ', form.recipient.data)
+
+    #money sending
+    if form.validate_on_submit():
+        user_recieve = User.query.filter_by(username=form.recipient.data).first()
+        user_send = current_user
+        if form.amount.data <= current_user.account:
+            current_user.account -= form.amount.data
+            user_recieve.account += form.amount.data
+            db.session.commit()      
+            flash('Sending of money successful', 'success')
+            return redirect(url_for('logged_in_page'))
+        else:
+                flash('Insufficient funds, please select an amount you have available in your account', 'error')
+
+    else:
+        pass
+
 
     return render_template('logged_in_page.html', title='Logged_in', form=form)
 
