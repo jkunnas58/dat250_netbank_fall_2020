@@ -1,0 +1,13 @@
+5_Broken Access Control
+
+Things to implement:
+
+•	All our accounts have same power. There is no admin account. Maybe we should create an admin account with more control. 
+  Like seeing how much money everyone has. Just an example. Can create and admin page that only admin can access. http://127.0.0.1:5000/admin.html
+
+Things to check:
+
+•	Have checked: Tried to access http://127.0.0.1:5000/logged_in_page.html after pushing Logout. Got and error. That is great.
+•	Our addresses don’t have any http://127.0.0.1:5000/logged_in_page.html=id1, that is good. It means hacker cannot change ID on URL and access another user’s info.
+
+Anything more we can check??
