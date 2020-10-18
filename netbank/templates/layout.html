@@ -24,8 +24,12 @@
   <body>
     <div>
       NetBank:
-      <a href="{{ url_for('index') }}">Home</a>
-      <a href="{{ url_for('login_page') }}">Login</a>
+      <a href="{{ url_for('index') }}">
+        <button type="button" class="btn btn-outline-secondary">Home</button>
+      </a>
+      <a href="{{ url_for('login_page') }}">
+        <button type="button" class="btn btn-outline-secondary">Login</button>
+      </a>
   </div>
     <header>
       <h1>NetBank</h1>
