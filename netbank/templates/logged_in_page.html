@@ -2,13 +2,13 @@
 {% block content %}
 
     <h1>
-        You have {{ current_user.account }} in your account
+        You have {{ current_user.account }} in your account number {{ current_user.id }}. For others to send to you provide them your account number. 
     </h1>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Choose a person to send money to:</legend>
+                <legend class="border-bottom mb-4">Choose an account number to send money to:</legend>
                 <div class="form-group">
                    {{form.recipient.label}}
                    {{form.recipient}}
