@@ -30,6 +30,7 @@ pyparsing==2.4.7
 pytest==6.1.1
 python-dateutil==2.8.1
 python2-secrets==1.0.5
+Safe==0.4
 s3transfer==0.3.3
 secret==0.8
 six==1.15.0
