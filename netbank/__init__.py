@@ -2,11 +2,17 @@ from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '958efa56da92ed114e48d8b256eebeffdbcb24f30bf6d500'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+#for local database
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+#for Heroku postgresql deployment
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
