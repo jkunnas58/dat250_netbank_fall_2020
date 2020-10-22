@@ -23,13 +23,15 @@
   </head>
   <body>
     <div>
-      NetBank:
       <a href="{{ url_for('index') }}">
-        <button type="button" class="btn btn-outline-secondary">Home</button>
-      </a>
+        <button type="button" class="btn btn-outline-secondary">Home</button></a>
+      {% if current_user.is_authenticated%}
+      <a href="{{ url_for('logout') }}">
+        <button type="button" class="btn btn-outline-secondary">Logout</button></a>
+      {%else%}
       <a href="{{ url_for('login_page') }}">
-        <button type="button" class="btn btn-outline-secondary">Login</button>
-      </a>
+        <button type="button" class="btn btn-outline-secondary">Login</button></a>
+      {%endif%}
   </div>
     <header>
       <h1>NetBank</h1>
