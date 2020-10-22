@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from netbank import app, db, bcrypt, limiter
 from netbank.models import User
 from netbank.forms import RegistrationForm, LoginForm, SendMoneyForm
 from flask_login import login_user, current_user, logout_user, login_required
 from wtforms.validators import  ValidationError
+from datetime import timedelta
 
 
 # db.drop_all() #uncomment this if you want a clean database everytime you restart server
@@ -55,16 +56,19 @@ def login_page():
 @login_required
 def logged_in_page():
     form = SendMoneyForm()
-    list_of_users = []
-    all_users = User.query.all()
-    for users in all_users:
-        if current_user != users:
-            list_of_users.append(users.id)
-    form.recipient.choices = list_of_users
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=2)
+    #drop down menu
+    # list_of_users = []
+    # all_users = User.query.all()
+    # for users in all_users:
+    #     if current_user != users:
+    #         list_of_users.append(users.id)
+    # form.recipient.choices = list_of_users
 
     #money sending
     if form.validate_on_submit():
-        user_recieve = User.query.filter_by(username=form.recipient.data).first()        
+        user_recieve = User.query.filter_by(id=form.recipient2.data).first()       
         if form.amount.data <= current_user.account:
             current_user.account -= form.amount.data
             user_recieve.account += form.amount.data

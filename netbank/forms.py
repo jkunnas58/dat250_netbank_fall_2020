@@ -52,13 +52,15 @@ class LoginForm(FlaskForm):
 
 class SendMoneyForm(FlaskForm):    
     amount = IntegerField('Amount', validators=[DataRequired(), NumberRange(min=1, message='Must be a valid number between 1 and you account amount')])
-    recipient = SelectField(label='Recipient', choices=[])
+    # recipient = SelectField(label='Recipient', choices=[])
+    recipient2 = IntegerField('Account Number', validators=[DataRequired()])
     submit = SubmitField('Send Money')
     username = StringField('Username', validators=[DataRequired()])  
     password = PasswordField('Password', validators=[DataRequired()])
 
-    # def validate_amount(self, amount):
-    #     if type(amount) is not int:
-    #         raise ValidationError('Amount must be a valid integer number')
+    def validate_acount(self, recipient2):
+        user = User.query.filter_by(id=recipient2.data).first()
+        if not user:
+            raise ValidationError('That account does not exist. Please check the number')
 
     
