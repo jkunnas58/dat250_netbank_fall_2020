@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
-from netbank import app, db, bcrypt
+from netbank import app, db, bcrypt, limiter
 from netbank.models import User
 from netbank.forms import RegistrationForm, LoginForm, SendMoneyForm
 from flask_login import login_user, current_user, logout_user, login_required
@@ -33,6 +33,7 @@ def register():
 
 @app.route('/login_page', methods=['GET', 'POST'])
 @app.route('/login_page.html', methods=['GET', 'POST'])
+@limiter.limit("5/5minute")
 def login_page():
     if current_user.is_authenticated:
         return redirect(url_for('logged_in_page'))
@@ -45,6 +46,8 @@ def login_page():
             return redirect(next_page) if next_page else redirect(url_for('logged_in_page'))
         else:
             flash('Login Unsuccessful. Please check username and password ', 'danger')
+    else:
+        return render_template('login_page.html', title='Login', form=form)
     return render_template('login_page.html', title='Login', form=form)
 
 @app.route('/logged_in_page', methods=['GET', 'POST'])
@@ -61,8 +64,7 @@ def logged_in_page():
 
     #money sending
     if form.validate_on_submit():
-        user_recieve = User.query.filter_by(username=form.recipient.data).first()
-        user_send = current_user
+        user_recieve = User.query.filter_by(username=form.recipient.data).first()        
         if form.amount.data <= current_user.account:
             current_user.account -= form.amount.data
             user_recieve.account += form.amount.data
