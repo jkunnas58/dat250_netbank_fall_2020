@@ -5,7 +5,8 @@ from netbank.forms import RegistrationForm, LoginForm, SendMoneyForm
 from flask_login import login_user, current_user, logout_user, login_required
 from wtforms.validators import  ValidationError
 
-# db.drop_all()
+
+# db.drop_all() #uncomment this if you want a clean database everytime you restart server
 db.create_all()
 
 @app.route('/')
@@ -55,7 +56,7 @@ def logged_in_page():
     all_users = User.query.all()
     for users in all_users:
         if current_user != users:
-            list_of_users.append(users.username)
+            list_of_users.append(users.id)
     form.recipient.choices = list_of_users
 
     #money sending
