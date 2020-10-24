@@ -26,7 +26,7 @@ class RegistrationForm(FlaskForm):
     def validate_password(self, password):
         password_check = safe.check(password.data, length=8, min_types = 4, level=3)
         if not password_check:
-            raise ValidationError('Password is not secure. Please have at least 8 Characters including numbers and upper and lower case letters')
+            raise ValidationError('Password is not secure. Please have at least 8 Characters including numbers, one special symbol and upper and lower case letters')
 
 
     def validate_username(self, username):
