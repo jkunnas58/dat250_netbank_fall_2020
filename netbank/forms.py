@@ -7,7 +7,9 @@ import safe
 
 
 class RegistrationForm(FlaskForm):
-    #TODO update minimum lengths on username and password
+    """
+
+    """
     username = StringField('Username', validators=[DataRequired(), Length(min=8, max=20)])
     amount = IntegerField('Insert Amount $ 100-1000', 
                         validators=[DataRequired(), NumberRange(min= 100, max=1000, message='Must be between 100 and 1000')])
@@ -17,11 +19,6 @@ class RegistrationForm(FlaskForm):
                                     validators=[DataRequired(), EqualTo('password')])
 
     submit = SubmitField('Sign Up')
-
-    # def validate_money(self, amount):
-    #     if amount > 1000 or amount< 100:
-    #         if type(amount) is not int:
-    #             raise ValidationError('Money amount must be between 100 and 1000')
 
     def validate_password(self, password):
         password_check = safe.check(password.data, length=8, min_types = 4, level=3)
@@ -42,12 +39,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-    # uncommenting this will let you know if you have entered a valid password and leave it more vunerable for brute force attacks 
-    # def validate_username(self, username):
-    #     user = User.query.filter_by(username=username.data).first()
-    #     if not user:
-    #         raise ValidationError('That username does not exist. Please check spelling')
-    
+   
 
 
 class SendMoneyForm(FlaskForm):    
