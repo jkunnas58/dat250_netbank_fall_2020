@@ -36,9 +36,12 @@ def register():
 @app.route('/login_page.html', methods=['GET', 'POST'])
 @limiter.limit("5/5minute")
 def login_page():
+    #checks if the current user is logged in, will then redirect to logged in page
     if current_user.is_authenticated:
         return redirect(url_for('logged_in_page'))
     form = LoginForm()
+
+    #if form is valid, it will check is user is in database and check the password is correct using the bcrypt function of checking hashed password.
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -56,15 +59,9 @@ def login_page():
 @login_required
 def logged_in_page():
     form = SendMoneyForm()
+    #code for timing out the logged in page
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=2)
-    #drop down menu
-    # list_of_users = []
-    # all_users = User.query.all()
-    # for users in all_users:
-    #     if current_user != users:
-    #         list_of_users.append(users.id)
-    # form.recipient.choices = list_of_users
 
     #money sending
     if form.validate_on_submit():
